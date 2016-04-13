@@ -7,9 +7,11 @@ import android.content.Intent;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.parse.ParseUser;
 
+import java.io.FileOutputStream;
 import java.util.Calendar;
 
 import kgp.tech.interiit.sos.Utils.MyReceiver;
@@ -31,6 +33,22 @@ public class WelcomeActivity extends AppCompatActivity {
             PendingIntent sender = PendingIntent.getBroadcast(this, 0, intent,
             PendingIntent.FLAG_UPDATE_CURRENT);
             am.set(AlarmManager.RTC_WAKEUP, timeOff9.getTimeInMillis() + 30000, sender);
+            String str_to_write = "";
+            //TODO: check if file exist dont write
+            str_to_write += "cafe-10\n";
+            str_to_write += "night_club-100\n";
+            str_to_write += "parking-100\n";
+
+            /*Test Data is being written here*/
+        try { // update the entry of previous location
+            Log.e("Writing content", str_to_write);
+            FileOutputStream outputStream = openFileOutput("log_loc.txt", Context.MODE_PRIVATE);
+            outputStream.write(str_to_write.getBytes());
+            outputStream.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
             startActivity(new Intent(this, MapsActivity.class));
             finish();

@@ -200,7 +200,10 @@ public class NetworkLocationService extends Service implements LocationListener 
                     String out_place = "other";
                     String ret = "";
                     JSONObject in_file_json = new JSONObject();
-                    if(!isFirst_write) {
+                    //if(!isFirst_write) {
+                    // It doesnt handle some exceptions, like if it fails to load, whole data will be erased
+                    // as out data doesnt give a damn about in data not being loaded
+                    if(true) {
                         try {
                             InputStream inputStream = openFileInput("log_loc.txt");
 
@@ -218,7 +221,12 @@ public class NetworkLocationService extends Service implements LocationListener 
                                             breakpoint = i;
                                         }
                                     }
-                                    in_file_json.put(receiveString.substring(0, breakpoint), new Long(receiveString.substring(breakpoint + 1, receiveString.length())));
+                                    try {
+                                        in_file_json.put(receiveString.substring(0, breakpoint), new Long(receiveString.substring(breakpoint + 1, receiveString.length())));
+                                    }
+                                    catch (Exception e) {
+                                    Log.e("JSON EXCEPTION", e.toString());
+                                    }
                                 }
 
                                 inputStream.close();
@@ -264,11 +272,7 @@ public class NetworkLocationService extends Service implements LocationListener 
                     else {
                         in_file_json.put(out_place, diff_time);
                     }
-                    ////////
 
-                    in_file_json.put("cafe", 20); // Delete after testing
-
-                    ////////
                     String str_to_write = "";
                     for (int i=0;i<in_file_json.length();i++)
                     {
