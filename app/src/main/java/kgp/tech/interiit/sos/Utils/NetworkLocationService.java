@@ -246,8 +246,10 @@ public class NetworkLocationService extends Service implements LocationListener 
                             JSONObject jsonObject = jsonArray.getJSONObject(i);
                             JSONArray type_array = jsonObject.getJSONArray("types");
                             for (int j = 0; j < type_array.length(); j++) {
-                                if (places_set.contains(type_array.toString())){
-                                    out_place = type_array.toString();
+                                Log.e("I have found: ", type_array.toString());
+                                if (places_set.contains(type_array.getString(j))){
+                                    Log.e("This lies there", type_array.getString(j));
+                                    out_place = type_array.getString(j);
                                     flag = false;
                                     break;
                                 }
