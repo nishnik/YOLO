@@ -39,22 +39,30 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import kgp.tech.interiit.sos.MessageActivity;
 import kgp.tech.interiit.sos.R;
 
 import static java.lang.Math.abs;
+
 
 /**
  * Created by nishantiam on 22-01-2016.
@@ -72,6 +80,8 @@ public class NetworkLocationService extends Service implements LocationListener 
     "place_of_worship","plumber","police","post_office","real_estate_agency","restaurant","roofing_contractor","rv_park",
     "school","shoe_store","shopping_mall","spa","stadium","storage","store","subway_station","synagogue","taxi_stand","train_station",
     "transit_station","travel_agency","university","veterinary_care","zoo"};
+    Set<String> places_set = new HashSet<String>(Arrays.asList(types_of_places));
+
     Location location;
     private static final long MIN_DISTANCE_FOR_UPDATE = 0;
     private static final long MIN_TIME_FOR_UPDATE = 0;//1000 * 60 * 1;
@@ -132,7 +142,7 @@ public class NetworkLocationService extends Service implements LocationListener 
         return min + hour * 60 + date * 1440;
     }
 
-    public String getJSON(String url, int timeout) {
+    static String getJSON(String url, int timeout) {
         HttpURLConnection c = null;
         try {
             URL u = new URL(url);
@@ -160,47 +170,122 @@ public class NetworkLocationService extends Service implements LocationListener 
             }
 
         } catch (MalformedURLException ex) {
-            Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         } catch (IOException ex) {
-            Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         } finally {
             if (c != null) {
                 try {
                     c.disconnect();
                 } catch (Exception ex) {
-                    Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
+                    //Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
+                    ex.printStackTrace();
                 }
             }
         }
         return null;
     }
+    static boolean isFirst_write = true;
+    public void write_with_place(final LatLng loc_old, final long diff_time) {
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    String key = "AIzaSyCTDMaJIhXDmGiz7dlJcmghD2LoVgKkTpI";
+                    String url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + Double.toString(loc_old.latitude) + "," + Double.toString(loc_old.longitude) + "&radius=100&key=" + key;
+                    String data = getJSON(url, 3000);
+                    String mResponse = "";
+                    String out_place = "other";
+                    String ret = "";
+                    JSONObject in_file_json = new JSONObject();
+                    if(!isFirst_write) {
+                        try {
+                            InputStream inputStream = openFileInput("log_loc.txt");
 
-    public String getPlace(LatLng loc)
-    {
-        String a = "Do this";
-        try {
-            String key = "AIzaSyCTDMaJIhXDmGiz7dlJcmghD2LoVgKkTpI";
-            String url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + Double.toString(loc.latitude) + "," + Double.toString(loc.longitude) + "&radius=20&key=" + key;
-            String data = getJSON(url, 3000);
-            try {
-                JSONObject jsonRootObject = new JSONObject(data);
+                            if (inputStream != null) {
+                                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+                                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+                                String receiveString = "";
+                                StringBuilder stringBuilder = new StringBuilder();
 
-                //Get the instance of JSONArray that contains JSONObjects
-                JSONArray jsonArray = jsonRootObject.getJSONArray("results");
+                                while ((receiveString = bufferedReader.readLine()) != null) {
+                                    stringBuilder.append(receiveString);
+                                    int breakpoint = 0;
+                                    for (int i = 0; i < receiveString.length(); i++) {
+                                        if (receiveString.charAt(i) == '-') {
+                                            breakpoint = i;
+                                        }
+                                    }
+                                    in_file_json.put(receiveString.substring(0, breakpoint), new Long(receiveString.substring(breakpoint + 1, receiveString.length())));
+                                }
 
-                //Iterate the jsonArray and print the info of JSONObjects
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+                                inputStream.close();
+                                ret = stringBuilder.toString();
+                                Log.e("Found content", ret);
+                            }
+                        } catch (FileNotFoundException e) {
+                            Log.e("login activity", "File not found: " + e.toString());
+                        } catch (IOException e) {
+                            Log.e("login activity", "Can not read file: " + e.toString());
+                        }
+                    }
 
+                    try {
+                        JSONObject jsonRootObject = new JSONObject(data);
+
+                        //Get the instance of JSONArray that contains JSONObjects
+                        JSONArray jsonArray = jsonRootObject.getJSONArray("results");
+
+                        boolean flag = true;
+                        //Iterate the jsonArray and print the info of JSONObjects
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            if (!flag)
+                                break;
+                            JSONObject jsonObject = jsonArray.getJSONObject(i);
+                            JSONArray type_array = jsonObject.getJSONArray("types");
+                            for (int j = 0; j < type_array.length(); j++) {
+                                if (places_set.contains(type_array.toString())){
+                                    out_place = type_array.toString();
+                                    flag = false;
+                                    break;
+                                }
+                            }
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    if (in_file_json.has(out_place)) {
+                        in_file_json.put(out_place, in_file_json.getLong(out_place) + diff_time);
+                    }
+                    else {
+                        in_file_json.put(out_place, diff_time);
+                    }
+                    String str_to_write = "";
+                    for (int i=0;i<in_file_json.length();i++)
+                    {
+                        str_to_write += in_file_json.names().getString(i) + "-" + in_file_json.get(in_file_json.names().getString(i));
+                        str_to_write += "\n";
+                    }
+                    try { // update the entry of previous location
+                        Log.e("Writing content", str_to_write);
+                        FileOutputStream outputStream = openFileOutput("log_loc.txt", Context.MODE_PRIVATE);
+                        outputStream.write(str_to_write.getBytes());
+                        outputStream.close();
+                        isFirst_write = false;
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
-        return a;
+                //return a;
+            }});
+        thread.run();
+
     }
 
     @Override
@@ -251,11 +336,13 @@ public class NetworkLocationService extends Service implements LocationListener 
                     results);
             dist = results[0];
             prev_time = getTimeHash(total.substring(second + 1));
-            Log.e("File", "File contents: " + total + Double.toString(prev_long));
+            Log.e("File", "File contents: " + total );
         } catch (Exception e) {
             e.printStackTrace();
         }
+        final LatLng loc_old = old_loc;
 
+        write_with_place(old_loc, 10);
         if (abs(dist) > 200) // in metres
         {
             try { // update the entry of previous location
@@ -267,15 +354,8 @@ public class NetworkLocationService extends Service implements LocationListener 
             }
             if (curr_time - prev_time > 10) //stayed at same place for more than 10 minutes
             {
-                //String place = get_place(old_loc);
-                String to_write = Double.toString(old_loc.latitude) + "-" + Double.toString(old_loc.longitude) + Long.toString(curr_time - prev_time);
-                try {
-                    outputStream = openFileOutput(log_of_loc, Context.MODE_APPEND);
-                    outputStream.write(to_write.getBytes());
-                    outputStream.close();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                write_with_place(old_loc, curr_time - prev_time);
+
             }
         } else {
             // do nothing
