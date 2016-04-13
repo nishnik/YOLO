@@ -9,18 +9,10 @@
 
 
     <string-array name="sample_names">
-        <item>Kenny Hudson </item>
-        <item>Ramiro Cox </item>
-        <item>Nathaniel Saunders </item>
-        <item>Lawrence Moore </item>
-        <item>Rosemary Johnson </item>
-        <item>Marlon Vaughn </item>
-        <item>Jorge Dixon </item>
-        <item>Hector Kelly </item>
-        <item>April Thornton </item>
-        <item>Gertrude Thomas </item>
-        <item>Jeremiah Deen </item>
-        <item>Sheen Lucas </item>
+        <item>Physical </item>
+        <item>Emotional </item>
+        <item>Social </item>
+        <item>Others </item>
     </string-array>
 
     <string-array name="sample_text">

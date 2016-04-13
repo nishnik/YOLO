@@ -264,6 +264,11 @@ public class NetworkLocationService extends Service implements LocationListener 
                     else {
                         in_file_json.put(out_place, diff_time);
                     }
+                    ////////
+
+                    in_file_json.put("cafe", 20); // Delete after testing
+
+                    ////////
                     String str_to_write = "";
                     for (int i=0;i<in_file_json.length();i++)
                     {
@@ -344,7 +349,7 @@ public class NetworkLocationService extends Service implements LocationListener 
         }
         final LatLng loc_old = old_loc;
 
-        write_with_place(old_loc, 10);
+        write_with_place(old_loc, 10); //// Delete after testing
         if (abs(dist) > 200) // in metres
         {
             try { // update the entry of previous location

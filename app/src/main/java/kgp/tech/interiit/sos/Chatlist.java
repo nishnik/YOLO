@@ -40,7 +40,7 @@ public class Chatlist extends AppCompatActivity {
 
         if (toolbar != null) {
             setSupportActionBar(toolbar);
-            getSupportActionBar().setTitle(new SpannableString("Chats"));
+            getSupportActionBar().setTitle(new SpannableString("Analyze"));
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
         }
@@ -54,36 +54,7 @@ public class Chatlist extends AppCompatActivity {
         listView.setDivider(null);
         listView.setDividerHeight(0);
 
-        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            public boolean onItemLongClick(AdapterView<?> av, View v, int position, long id) {
-                //Get your item here with the position
-                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getApplicationContext());
 
-                    /*LayoutInflater inflater = getActivity().getLayoutInflater();
-                    View dialogView = inflater.inflate(R.layout.contact_card, null);
-                    dialogBuilder.setView(dialogView);*/
-                String[] op = {"Archive", "Delete", "Block", "Details"};
-
-                dialogBuilder.setItems(op, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        if (i == 3) {
-                            AlertDialog.Builder dialogBuilder2 = new AlertDialog.Builder(Chatlist.this);
-                            LayoutInflater inflater = getLayoutInflater();
-                            View dialogView = inflater.inflate(R.layout.contact_card, null);
-                            dialogBuilder2.setView(dialogView);
-                            AlertDialog alertDialog2 = dialogBuilder2.create();
-                            alertDialog2.show();
-                        }
-                    }
-                });
-
-
-                AlertDialog alertDialog = dialogBuilder.create();
-                alertDialog.show();
-                return true;
-            }
-        });
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> av, View v, int position, long id) {
@@ -208,7 +179,7 @@ class MyAdapter extends BaseAdapter {
         }
         TextView tv1=(TextView) row.findViewById(R.id.name);
         TextView tv2=(TextView) row.findViewById(R.id.txt);
-        TextView tv3=(TextView) row.findViewById(R.id.time);
+        //TextView tv3=(TextView) row.findViewById(R.id.time);
         CircleImageView iv1=(CircleImageView) row.findViewById(R.id.img);
 
 
@@ -217,15 +188,15 @@ class MyAdapter extends BaseAdapter {
         iv1.setImageResource(R.drawable.sample_man);
 
         Random r = new Random();
-        int Low = 0;
-        int High = 23;
-        int R1 = r.nextInt(High-Low) + Low;
-        String f1 = String.format("%02d", R1);
-        Low = 00;
-        High=59;
-        int R2 = r.nextInt(High-Low) + Low;
-        String f2 = String.format("%02d", R2);
-        tv3.setText(f1+":"+f2);
+        //int Low = 0;
+        //int High = 23;
+        //int R1 = r.nextInt(High-Low) + Low;
+        //String f1 = String.format("%02d", R1);
+//        Low = 00;
+//        High=59;
+//        int R2 = r.nextInt(High-Low) + Low;
+//        String f2 = String.format("%02d", R2);
+        //tv3.setText(f1+":"+f2);
 
         return row;
     }
