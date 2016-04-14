@@ -9,10 +9,11 @@
 
 
     <string-array name="sample_names">
-        <item>Physical </item>
-        <item>Emotional </item>
+        <item>Work </item>
+        <item>Leisure </item>
         <item>Social </item>
         <item>Others </item>
+        <item>Health </item>
     </string-array>
 
     <string-array name="sample_text">

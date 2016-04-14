@@ -119,7 +119,7 @@ public class ssoft{
 
     }
 
-    public static void run(JSONObject in_json){
+    public static JSONObject run(JSONObject in_json){
 //        Scanner in = new Scanner(System.in);
 //
 //
@@ -304,12 +304,26 @@ public class ssoft{
 //            k = find_place(b);
 //            input[k] = input[k]+t;
 //        }
-        double social_score =0.0 ;double social_time = 0.0 ;
-        double leisure_score =0.0;double leisure_time = 0.0;
-        double health_score = 0.0;double health_time = 0.0;
-        double work_score = 0.0;double work_time =0.0;
-        double others_score = 0.0;double others_time = 0.0;
+        double social_score = 0;double social_time = 0;double fuzzy_social_score = 0;
+        double leisure_score = 0;double leisure_time = 0;double fuzzy_leisure_score = 0;
+        double health_score = 0;double health_time = 0;double fuzzy_health_score = 0;
+        double work_score = 0;double work_time = 0;double fuzzy_work_score = 0;
+        double others_score = 0;double others_time = 0;double fuzzy_others_score = 0;
+
+        double sleep_time = 436.25;
+        double fuzzy_social_score_unit = 43.79;
+        double negative_fuzzy_social_score_unit=-91.025;
+        double fuzzy_leisure_score_unit = 51.872;
+        double negative_fuzzy_leisure_score_unit = 0;
+        double fuzzy_health_score_unit = 51.69;
+        double negative_fuzzy_health_score_unit=-30.34;
+        double fuzzy_work_score_unit = 63.01;
+        double negative_fuzzy_work_score_unit = -24.1;
+        double fuzzy_others_score_unit = 17.12;
+        double negative_fuzzy_others_score_unit = 0;
+
         double work_efficiency ;
+
         for(int i=0 ; i < 100;i++)
         {
             if(input[i] != 0)
@@ -320,27 +334,44 @@ public class ssoft{
                     {
                         social_score += 1.0*input[i]*place[i].score;
                         social_time += input[i];
+                        if(place[i].score > 0)
+                        {
+                            fuzzy_social_score += input[i]*fuzzy_social_score_unit;
+                        }
+                        else fuzzy_social_score += input[i]*negative_fuzzy_social_score_unit;
                         //System.out.println(social_score);
                     }
                     if((place[i].type).equals("work"))
                     {
                         work_score += 1.0*input[i]*place[i].score;
                         work_time += input[i];
+                        if(place[i].score > 0)
+                        {
+                            fuzzy_work_score += input[i]*fuzzy_work_score_unit;
+                        }
+                        else fuzzy_work_score += input[i]*negative_fuzzy_work_score_unit;
                     }
                     if((place[i].type).equals("leisure"))
                     {
                         leisure_score += 1.0*input[i]*place[i].score;
                         leisure_time += input[i];
+                        fuzzy_leisure_score += fuzzy_leisure_score_unit*input[i];
                     }
                     if((place[i].type).equals("health") )
                     {
                         health_score += 1.0*input[i]*place[i].score;
                         health_time += input[i];
+                        if(place[i].score > 0)
+                        {
+                            fuzzy_health_score += input[i]*fuzzy_health_score_unit;
+                        }
+                        else fuzzy_health_score += input[i]*negative_fuzzy_health_score_unit;
                     }
                     if((place[i].type).equals("others"))
                     {
                         others_score += 1.0*input[i]*place[i].score;
                         others_time += input[i];
+                        fuzzy_others_score += fuzzy_others_score_unit*input[i];
                     }
                     if((place[i].type).equals("social_leisure"))
                     {
@@ -349,6 +380,16 @@ public class ssoft{
                         leisure_score += 1.0*input[i]*place[i].score*(1-place[i].ratio);
                         social_time += 1.0*input[i]*place[i].ratio;
                         leisure_time += 1.0*input[i]*(1-place[i].ratio);
+                        if(place[i].score > 0)
+                        {
+                            fuzzy_social_score += input[i]*fuzzy_social_score_unit*place[i].ratio;
+                            fuzzy_leisure_score += input[i]*fuzzy_leisure_score_unit*(1-place[i].ratio);
+                        }
+                        else
+                        {
+                            fuzzy_social_score += input[i]*negative_fuzzy_social_score_unit*place[i].ratio;
+                            fuzzy_leisure_score += input[i]*negative_fuzzy_leisure_score_unit*(1-place[i].ratio);
+                        }
                     }
                     if((place[i].type).equals("work_social"))
                     {
@@ -357,6 +398,16 @@ public class ssoft{
                         //System.out.println(social_score);
                         work_time += 1.0*input[i]*place[i].ratio;
                         social_time += 1.0*input[i]*(1-place[i].ratio);
+                        if(place[i].score > 0)
+                        {
+                            fuzzy_work_score += input[i]*fuzzy_work_score_unit*place[i].ratio;
+                            fuzzy_social_score += input[i]*fuzzy_social_score_unit*(1-place[i].ratio);
+                        }
+                        else
+                        {
+                            fuzzy_work_score += input[i]*negative_fuzzy_work_score_unit*place[i].ratio;
+                            fuzzy_social_score += input[i]*negative_fuzzy_social_score_unit*(1-place[i].ratio);
+                        }
                     }
                     if((place[i].type).equals("social_health"))
                     {
@@ -365,6 +416,16 @@ public class ssoft{
                         health_score += 1.0*input[i]*place[i].score*(1-place[i].ratio);
                         social_time += 1.0*input[i]*place[i].ratio;
                         health_time += 1.0*input[i]*(1-place[i].ratio);
+                        if(place[i].score > 0)
+                        {
+                            fuzzy_social_score += input[i]*fuzzy_social_score_unit*place[i].ratio;
+                            fuzzy_health_score += input[i]*fuzzy_health_score_unit*(1-place[i].ratio);
+                        }
+                        else
+                        {
+                            fuzzy_social_score += input[i]*negative_fuzzy_social_score_unit*place[i].ratio;
+                            fuzzy_health_score += input[i]*negative_fuzzy_health_score_unit*(1-place[i].ratio);
+                        }
                     }
                     if((place[i].type).equals("health_leisure"))
                     {
@@ -372,27 +433,41 @@ public class ssoft{
                         leisure_score += 1.0*input[i]*place[i].score*(1-place[i].ratio);
                         health_time += 1.0*input[i]*place[i].ratio;
                         leisure_time += 1.0*input[i]*(1-place[i].ratio);
+                        if(place[i].score > 0)
+                        {
+                            fuzzy_health_score += input[i]*fuzzy_health_score_unit*place[i].ratio;
+                            fuzzy_leisure_score += input[i]*fuzzy_leisure_score_unit*(1-place[i].ratio);
+                        }
+                        else
+                        {
+                            fuzzy_health_score += input[i]*negative_fuzzy_health_score_unit*place[i].ratio;
+                            fuzzy_leisure_score += input[i]*negative_fuzzy_leisure_score_unit*(1-place[i].ratio);
+                        }
                     }
                 }
                 if(i == 98)
                 {
-                    if(input[i] >= 390)
+                    if(input[i] >= sleep_time)
                     {
-                        leisure_score += 0.558*(input[i]-390)*50;
-                        leisure_score += 0.154*(input[i]-390)*65;
-                        leisure_time += 1.0*(input[i]-390)*(0.558+0.154);
-                        work_score += 0.154*(input[i]-390)*70;
-                        work_time += 1.0*(input[i]-390)*0.154;
-                        social_score += 0.077*(input[i]-390)*80;
+                        leisure_score += 0.558*(input[i]-sleep_time)*50;
+                        leisure_score += 0.154*(input[i]-sleep_time)*65;
+                        leisure_time += 1.0*(input[i]-sleep_time)*(0.558+0.154);
+                        work_score += 0.154*(input[i]-sleep_time)*70;
+                        work_time += 1.0*(input[i]-sleep_time)*0.154;
+                        social_score += 0.077*(input[i]-sleep_time)*80;
                         //System.out.println(social_score);
-                        social_time += 1.0*(input[i]-390)*0.077;
-                        others_score += 0.058*(input[i]-390)*25;
-                        others_time += 1.0*(input[i]-390)*0.058;
+                        social_time += 1.0*(input[i]-sleep_time)*0.077;
+                        others_score += 0.058*(input[i]-sleep_time)*25;
+                        others_time += 1.0*(input[i]-sleep_time)*0.058;
+                        fuzzy_social_score += (input[i]-sleep_time)*fuzzy_social_score_unit*0.077;
+                        fuzzy_work_score += (input[i]-sleep_time)*fuzzy_work_score_unit*0.154;
+                        fuzzy_leisure_score += (input[i]-sleep_time)*fuzzy_leisure_score_unit*(0.558+0.154);
+                        fuzzy_others_score += (input[i]-sleep_time)*fuzzy_others_score_unit*0.058;
                     }
                     else
                     {
                         //TODO see the threshold
-                        //System.out.println("You are having less amount of rest.Suggestion : Spend atleast " + (390-input[i]) +" minutes more at home.");
+                        //System.out.println("You are having less amount of rest.Suggestion : Spend atleast " + (sleep_time-input[i]) +" minutes more at home.");
                     }
                 }
                 if(i==99)
@@ -406,6 +481,18 @@ public class ssoft{
             }
         }
 
+        social_score = social_score / (1440-sleep_time) ;
+        work_score = work_score / (1440-sleep_time) ;
+        leisure_score = leisure_score / (1440-sleep_time) ;
+        health_score = health_score / (1440-sleep_time) ;
+        others_score = others_score / (1440-sleep_time) ;
+
+        fuzzy_social_score = fuzzy_social_score / (1440-sleep_time) ;
+        fuzzy_work_score = fuzzy_work_score / (1440-sleep_time) ;
+        fuzzy_leisure_score = fuzzy_leisure_score / (1440-sleep_time) ;
+        fuzzy_health_score = fuzzy_health_score / (1440-sleep_time) ;
+        fuzzy_others_score = fuzzy_others_score / (1440-sleep_time) ;
+
         JSONObject out_json = new JSONObject();
         //out_json.put()
         String TAG = "ssoft";
@@ -414,6 +501,23 @@ public class ssoft{
         Log.e(TAG, "Leisure score : " + leisure_score + " \t Leisure Time : " + leisure_time);
         Log.e(TAG, "Health score : " + health_score + " \t Health Time : " + health_time);
         Log.e(TAG, "Others score : " + others_score + " \t Others Time : " + others_time);
+        try {
+            out_json.put("social_score", social_score);
+            out_json.put("work_score", work_score);
+            out_json.put("leisure_score", leisure_score);
+            out_json.put("health_score", health_score);
+            out_json.put("others_score", others_score);
 
+            out_json.put("social_time", social_time);
+            out_json.put("work_time", work_time);
+            out_json.put("leisure_time", leisure_time);
+            out_json.put("health_time", health_time);
+            out_json.put("others_time", others_time);
+
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        return out_json;
     }
 }

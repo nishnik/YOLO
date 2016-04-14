@@ -38,6 +38,9 @@ public class WelcomeActivity extends AppCompatActivity {
             str_to_write += "cafe-10\n";
             str_to_write += "night_club-100\n";
             str_to_write += "parking-100\n";
+            str_to_write += "gym-90\n";
+            str_to_write += "bank-150\n";
+
 
             /*Test Data is being written here*/
         try { // update the entry of previous location

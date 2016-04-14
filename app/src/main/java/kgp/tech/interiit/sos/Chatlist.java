@@ -38,6 +38,7 @@ public class Chatlist extends AppCompatActivity {
 
     private Toolbar toolbar;
     private ListView listView;
+    public static JSONObject out_json;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,13 +70,13 @@ public class Chatlist extends AppCompatActivity {
             public void onItemClick(AdapterView<?> av, View v, int position, long id) {
                 //Get your item here with the position
 
-                final Intent intent = new Intent(Chatlist.this, MessageActivity.class);
+                final Intent intent = new Intent(Chatlist.this, AChartEnginePieChartActivity.class);
 
                 //FloatingActionsMenu fm = ((FloatingActionsMenu) getActivity().findViewById(R.id.new_up));
 
-                TextView tv1 = (TextView) v.findViewById(R.id.name);
-                String name = tv1.getText().toString();
-                intent.putExtra("name", name);
+//                TextView tv1 = (TextView) v.findViewById(R.id.name);
+//                String name = tv1.getText().toString();
+//                intent.putExtra("name", name);
                 startActivity(intent);
 
 
@@ -125,7 +126,7 @@ public class Chatlist extends AppCompatActivity {
         }
 
         ssoft s = new ssoft();
-        s.run(in_file_json);
+        out_json = s.run(in_file_json);
 
 
 
@@ -235,24 +236,92 @@ class MyAdapter extends BaseAdapter {
         }
         TextView tv1=(TextView) row.findViewById(R.id.name);
         TextView tv2=(TextView) row.findViewById(R.id.txt);
-        //TextView tv3=(TextView) row.findViewById(R.id.time);
+        TextView tv3=(TextView) row.findViewById(R.id.time);
         CircleImageView iv1=(CircleImageView) row.findViewById(R.id.img);
 
-
-        tv1.setText(name[position]);
-        tv2.setText("Hey! Its me writing this");
+        if(name[position].equals("Social")) {
+            tv1.setText(name[position]);
+            try {
+                tv2.setText("YOLO bitches!");
+                long time_in = Chatlist.out_json.getLong("social_time");
+                long hour = time_in/60;
+                long minute = time_in%60;
+                String f1 = String.format("%02d", hour);
+                String f2 = String.format("%02d", minute);
+                tv3.setText(f1 + ":" + f2);
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        else if(name[position].equals("Work")) {
+            tv1.setText(name[position]);
+            try {
+                tv2.setText("YOLO bitches!");
+                long time_in = Chatlist.out_json.getLong("work_time");
+                long hour = time_in/60;
+                long minute = time_in%60;
+                String f1 = String.format("%02d", hour);
+                String f2 = String.format("%02d", minute);
+                tv3.setText(f1 + ":" + f2);
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        else if(name[position].equals("Leisure")) {
+            tv1.setText(name[position]);
+            try {
+                tv2.setText("YOLO bitches!");
+                long time_in = Chatlist.out_json.getLong("leisure_time");
+                long hour = time_in/60;
+                long minute = time_in%60;
+                String f1 = String.format("%02d", hour);
+                String f2 = String.format("%02d", minute);
+                tv3.setText(f1 + ":" + f2);
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        else if(name[position].equals("Health")) {
+            tv1.setText(name[position]);
+            try {
+                tv2.setText("YOLO bitches!");
+                long time_in = Chatlist.out_json.getLong("health_time");
+                long hour = time_in/60;
+                long minute = time_in%60;
+                String f1 = String.format("%02d", hour);
+                String f2 = String.format("%02d", minute);
+                tv3.setText(f1 + ":" + f2);
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        else if(name[position].equals("Others")) {
+            tv1.setText(name[position]);
+            try {
+                tv2.setText("YOLO bitches!");
+                long time_in = Chatlist.out_json.getLong("others_time");
+                long hour = time_in/60;
+                long minute = time_in%60;
+                String f1 = String.format("%02d", hour);
+                String f2 = String.format("%02d", minute);
+                tv3.setText(f1 + ":" + f2);
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        else {
+            Log.e("In else", name[position]);
+            tv1.setText(name[position]);
+            tv2.setText("Hey! Its me writing this");
+        }
         iv1.setImageResource(R.drawable.sample_man);
 
         Random r = new Random();
-        //int Low = 0;
-        //int High = 23;
-        //int R1 = r.nextInt(High-Low) + Low;
-        //String f1 = String.format("%02d", R1);
-//        Low = 00;
-//        High=59;
-//        int R2 = r.nextInt(High-Low) + Low;
-//        String f2 = String.format("%02d", R2);
-        //tv3.setText(f1+":"+f2);
 
         return row;
     }
