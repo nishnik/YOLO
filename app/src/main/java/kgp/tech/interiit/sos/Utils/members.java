@@ -6,21 +6,21 @@ package kgp.tech.interiit.sos.Utils;
 
 public class members {
     static double slope(int a,int b,int c,int d,double x){
-        if(x < a)
+        if(x < (double)a)
         {
-            return 0;
+            return 0.0;
         }
-        else if(x>=a && x< b)
+        else if(x>=(double)a && x< (double)b)
         {
-            return (double)(x-a)/(b-a);
+            return (double)(x-a)/(double)(b-a);
         }
-        else if(x>=b && x< c)
+        else if(x>=(double)b && x< (double)c)
         {
-            return 1;
+            return 1.0;
         }
-        else if(x >= c && x<=d)
+        else if(x >= (double)c && x<=(double)d)
         {
-            return (double)(d-x)/(d-c);
+            return (double)(d-x)/(double)(d-c);
         }
         else return 0;
     }

@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -128,9 +129,6 @@ public class Chatlist extends AppCompatActivity {
         ssoft s = new ssoft();
         out_json = s.run(in_file_json);
 
-
-
-
     }
 
 
@@ -238,17 +236,19 @@ class MyAdapter extends BaseAdapter {
         TextView tv2=(TextView) row.findViewById(R.id.txt);
         TextView tv3=(TextView) row.findViewById(R.id.time);
         CircleImageView iv1=(CircleImageView) row.findViewById(R.id.img);
+        iv1.setImageResource(R.drawable.sample_man);
 
         if(name[position].equals("Social")) {
             tv1.setText(name[position]);
             try {
-                tv2.setText("YOLO bitches!");
+                tv2.setText(Chatlist.out_json.getString("social_str"));
                 long time_in = Chatlist.out_json.getLong("social_time");
                 long hour = time_in/60;
                 long minute = time_in%60;
                 String f1 = String.format("%02d", hour);
                 String f2 = String.format("%02d", minute);
                 tv3.setText(f1 + ":" + f2);
+                iv1.setImageResource(R.drawable.social);
             }
             catch (Exception e) {
                 e.printStackTrace();
@@ -257,13 +257,14 @@ class MyAdapter extends BaseAdapter {
         else if(name[position].equals("Work")) {
             tv1.setText(name[position]);
             try {
-                tv2.setText("YOLO bitches!");
+                tv2.setText(Chatlist.out_json.getString("work_str"));
                 long time_in = Chatlist.out_json.getLong("work_time");
                 long hour = time_in/60;
                 long minute = time_in%60;
                 String f1 = String.format("%02d", hour);
                 String f2 = String.format("%02d", minute);
                 tv3.setText(f1 + ":" + f2);
+                iv1.setImageResource(R.drawable.work);
             }
             catch (Exception e) {
                 e.printStackTrace();
@@ -272,13 +273,14 @@ class MyAdapter extends BaseAdapter {
         else if(name[position].equals("Leisure")) {
             tv1.setText(name[position]);
             try {
-                tv2.setText("YOLO bitches!");
+                tv2.setText(Chatlist.out_json.getString("leisure_str"));
                 long time_in = Chatlist.out_json.getLong("leisure_time");
                 long hour = time_in/60;
                 long minute = time_in%60;
                 String f1 = String.format("%02d", hour);
                 String f2 = String.format("%02d", minute);
                 tv3.setText(f1 + ":" + f2);
+                iv1.setImageResource(R.drawable.leisure);
             }
             catch (Exception e) {
                 e.printStackTrace();
@@ -287,13 +289,14 @@ class MyAdapter extends BaseAdapter {
         else if(name[position].equals("Health")) {
             tv1.setText(name[position]);
             try {
-                tv2.setText("YOLO bitches!");
+                tv2.setText(Chatlist.out_json.getString("health_str"));
                 long time_in = Chatlist.out_json.getLong("health_time");
                 long hour = time_in/60;
                 long minute = time_in%60;
                 String f1 = String.format("%02d", hour);
                 String f2 = String.format("%02d", minute);
                 tv3.setText(f1 + ":" + f2);
+                iv1.setImageResource(R.drawable.health);
             }
             catch (Exception e) {
                 e.printStackTrace();
@@ -302,13 +305,14 @@ class MyAdapter extends BaseAdapter {
         else if(name[position].equals("Others")) {
             tv1.setText(name[position]);
             try {
-                tv2.setText("YOLO bitches!");
+                tv2.setText(Chatlist.out_json.getString("others_str"));
                 long time_in = Chatlist.out_json.getLong("others_time");
                 long hour = time_in/60;
                 long minute = time_in%60;
                 String f1 = String.format("%02d", hour);
                 String f2 = String.format("%02d", minute);
                 tv3.setText(f1 + ":" + f2);
+                iv1.setImageResource(R.drawable.others);
             }
             catch (Exception e) {
                 e.printStackTrace();
@@ -317,9 +321,8 @@ class MyAdapter extends BaseAdapter {
         else {
             Log.e("In else", name[position]);
             tv1.setText(name[position]);
-            tv2.setText("Hey! Its me writing this");
+            tv2.setText("YOLO");
         }
-        iv1.setImageResource(R.drawable.sample_man);
 
         Random r = new Random();
 

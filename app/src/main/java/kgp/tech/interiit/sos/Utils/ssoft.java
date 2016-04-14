@@ -119,35 +119,37 @@ public class ssoft{
 
     }
 
-    static double max(double a,double b,double c,double d){
-        if(a>=b){
-            if(a>=c){
-                if(a>=d){
-                    return a;
-                }
-                else return d;
-            }
-            else{
-                if(c>=d){
-                    return c;
-                }
-                else return d;
-            }
-        }
-        else{
-            if(b>=c){
-                if(b>=d){
-                    return b;
-                }
-                else return d;
-            }
-            else{
-                if(c>=d){
-                    return c;
-                }
-                else return d;
-            }
-        }
+    static double max_fn(double a,double b,double c,double d){
+        return Math.max(Math.max(Math.max(a,b),c),d);
+//
+//        if(a>=b){
+//            if(a>=c){
+//                if(a>=d){
+//                    return a;
+//                }
+//                else return d;
+//            }
+//            else{
+//                if(c>=d){
+//                    return c;
+//                }
+//                else return d;
+//            }
+//        }
+//        else{
+//            if(b>=c){
+//                if(b>=d){
+//                    return b;
+//                }
+//                else return d;
+//            }
+//            else{
+//                if(c>=d){
+//                    return c;
+//                }
+//                else return d;
+//            }
+//        }
     }
 
     public static JSONObject run(JSONObject in_json){
@@ -535,370 +537,274 @@ public class ssoft{
         Log.e(TAG, "Others score : " + others_score + " \t Others Time : " + others_time);
 
 
-        double leisure_hectic = members.slope(s_home_hectic_a,s_home_hectic_b,s_home_hectic_c,s_home_hectic_d,leisure_time+sleep_time);
-        double leisure_ideal = members.slope(s_home_ideal_a,s_home_ideal_b,s_home_ideal_c,s_home_ideal_d,leisure_time+sleep_time);
-        double leisure_lazy = members.slope(s_home_lazy_a,s_home_lazy_b,s_home_lazy_c,s_home_lazy_d,leisure_time+sleep_time);
-        double leisure_vlazy = members.slope(s_home_vlazy_a,s_home_vlazy_b,s_home_vlazy_c,s_home_vlazy_d,leisure_time+sleep_time);
+            double leisure_hectic = members.slope(s_home_hectic_a, s_home_hectic_b, s_home_hectic_c, s_home_hectic_d, leisure_time + sleep_time);
+            double leisure_ideal = members.slope(s_home_ideal_a, s_home_ideal_b, s_home_ideal_c, s_home_ideal_d, leisure_time + sleep_time);
+            double leisure_lazy = members.slope(s_home_lazy_a, s_home_lazy_b, s_home_lazy_c, s_home_lazy_d, leisure_time + sleep_time);
+            double leisure_vlazy = members.slope(s_home_vlazy_a, s_home_vlazy_b, s_home_vlazy_c, s_home_vlazy_d, leisure_time + sleep_time);
 
-        double work_less = members.slope(s_work_less_a,s_work_less_b,s_work_less_c,s_work_less_d,work_time);
-        double work_avg = members.slope(s_work_avg_a,s_work_avg_b,s_work_avg_c,s_work_avg_d,work_time);
-        double work_good = members.slope(s_work_good_a,s_work_good_b,s_work_good_c,s_work_good_d,work_time);
-        double work_hectic = members.slope(s_work_hectic_a,s_work_hectic_b,s_work_hectic_c,s_work_hectic_d,work_time);
+            double work_less = members.slope(s_work_less_a, s_work_less_b, s_work_less_c, s_work_less_d, work_time);
+            double work_avg = members.slope(s_work_avg_a, s_work_avg_b, s_work_avg_c, s_work_avg_d, work_time);
+            double work_good = members.slope(s_work_good_a, s_work_good_b, s_work_good_c, s_work_good_d, work_time);
+            double work_hectic = members.slope(s_work_hectic_a, s_work_hectic_b, s_work_hectic_c, s_work_hectic_d, work_time);
 
-        double fitness_less = members.slope(s_fitness_less_a,s_fitness_less_b,s_fitness_less_c,s_fitness_less_d,health_time);
-        double fitness_good = members.slope(s_fitness_good_a,s_fitness_good_b,s_fitness_good_c,s_fitness_good_d,health_time);
-        double fitness_vgood = members.slope(s_fitness_vgood_a,s_fitness_vgood_b,s_fitness_vgood_c,s_fitness_vgood_d,health_time) ;
-        double fitness_excess = members.slope(s_fitness_excess_a,s_fitness_excess_b,s_fitness_excess_c,s_fitness_excess_d,health_time);
+            double fitness_less = members.slope(s_fitness_less_a, s_fitness_less_b, s_fitness_less_c, s_fitness_less_d, health_time);
+            double fitness_good = members.slope(s_fitness_good_a, s_fitness_good_b, s_fitness_good_c, s_fitness_good_d, health_time);
+            double fitness_vgood = members.slope(s_fitness_vgood_a, s_fitness_vgood_b, s_fitness_vgood_c, s_fitness_vgood_d, health_time);
+            double fitness_excess = members.slope(s_fitness_excess_a, s_fitness_excess_b, s_fitness_excess_c, s_fitness_excess_d, health_time);
 
-        double social_less = members.slope(s_social_less_a,s_social_less_b,s_social_less_c,s_social_less_d,social_time);
-        double social_good = members.slope(s_social_good_a,s_social_good_b,s_social_good_c,s_social_good_d,social_time);
-        double social_excess = members.slope(s_social_excess_a,s_social_excess_b,s_social_excess_c,s_social_excess_d,social_time);
+            double social_less = members.slope(s_social_less_a, s_social_less_b, s_social_less_c, s_social_less_d, social_time);
+            double social_good = members.slope(s_social_good_a, s_social_good_b, s_social_good_c, s_social_good_d, social_time);
+            double social_excess = members.slope(s_social_excess_a, s_social_excess_b, s_social_excess_c, s_social_excess_d, social_time);
 
-        double others_acceptable = members.slope(s_others_accepted_a,s_others_accepted_b,s_others_accepted_c,s_others_accepted_d,others_time);
-        double others_excess = members.slope(s_others_excess_a,s_others_excess_b,s_others_excess_c,s_others_excess_d,others_time);
-        
-        String leisure_string1 = "";
-        String leisure_string2 = "";
-        String social_string1 = "";
-        String social_string2 = "";
-        String work_string1 = "";
-        String work_string2 = "";
-        String health_string1 = "";
-        String health_string2 = "";
-        String others_string1 = "";
-        String others_string2 = "";
+            double others_acceptable = members.slope(s_others_accepted_a, s_others_accepted_b, s_others_accepted_c, s_others_accepted_d, others_time);
+            double others_excess = members.slope(s_others_excess_a, s_others_excess_b, s_others_excess_c, s_others_excess_d, others_time);
 
-        
-        if(leisure_score < 0.9*fuzzy_leisure_score)
-        {
-            if(max(leisure_hectic,leisure_ideal,leisure_lazy,leisure_vlazy) == leisure_hectic)
-            {
-               leisure_string1 = "Catch a movie streaming on TV this evening.";
-               leisure_string2 = "Fuzzy Leisure Status : Hectic";
-            }
-            else if(max(leisure_hectic,leisure_ideal,leisure_lazy,leisure_vlazy) == leisure_ideal)
-            {
-               leisure_string1 = "Catch a movie streaming on TV this evening.";
-               leisure_string2 = "Fuzzy Leisure Status : Ideal";
-            }
-            else if(max(leisure_hectic,leisure_ideal,leisure_lazy,leisure_vlazy) == leisure_lazy)
-            {
-               leisure_string1 = "Time to go to the beach.";
-               leisure_string2 = "Fuzzy Leisure Status : Lazy";
-            }
-            else if(max(leisure_hectic,leisure_ideal,leisure_lazy,leisure_vlazy) == leisure_vlazy)
-            {
-               leisure_string1 = "Time to go to the beach.";
-               leisure_string2 = "Fuzzy Leisure Status : Very Lazy";
-            }
-        }
-        else if(leisure_score > 1.1*fuzzy_leisure_score)
-        {
-            if(max(leisure_hectic,leisure_ideal,leisure_lazy,leisure_vlazy) == leisure_hectic)
-            {
-               leisure_string1 = "Aliens are out there to kill you.Pray with framily at home.";
-               leisure_string2 = "Fuzzy Leisure Status : Hectic";
-            }
-            else if(max(leisure_hectic,leisure_ideal,leisure_lazy,leisure_vlazy) == leisure_hectic)
-            {
-               leisure_string1 = "When was the last time you played board games?";
-               leisure_string2 = "Fuzzy Leisure Status : Ideal";
-            }
-            else if(max(leisure_hectic,leisure_ideal,leisure_lazy,leisure_vlazy) == leisure_lazy)
-            {
-               leisure_string1 = "Household work can't kill you but why take a chance ?";
-               leisure_string2 = "Fuzzy Leisure Status : Lazy";
-            }
-            else if(max(leisure_hectic,leisure_ideal,leisure_lazy,leisure_vlazy) == leisure_vlazy)
-            {
-               leisure_string1 = "Household work can't kill you but why take a chance ?";
-               leisure_string2 = "Fuzzy Leisure Status : Very Lazy";
-            }
-        }
-        else
-        {
-            if(max(leisure_hectic,leisure_ideal,leisure_lazy,leisure_vlazy) == leisure_hectic)
-            {
-               leisure_string1 = "Have some rest at home buddy.";
-               leisure_string2 = "Fuzzy Leisure Status : Hectic";
-            }
-            else if(max(leisure_hectic,leisure_ideal,leisure_lazy,leisure_vlazy) == leisure_ideal)
-            {
-               leisure_string1 = "Going perfect.I must learn from you.";
-               leisure_string2 = "Fuzzy Leisure Status : Ideal";
-            }
-            else if(max(leisure_hectic,leisure_ideal,leisure_lazy,leisure_vlazy) == leisure_lazy)
-            {
-               leisure_string1 = "Household work can't kill you but why take a chance ?";
-               leisure_string2 = "Fuzzy Leisure Status : Lazy";
-            }
-            else if(max(leisure_hectic,leisure_ideal,leisure_lazy,leisure_vlazy) == leisure_vlazy)
-            {
-               leisure_string1 = "Household work can't kill you but why take a chance ?";
-               leisure_string2 = "Fuzzy Leisure Status : Hectic";
-            }
-        }
+            String leisure_string1 = "";
+            String leisure_string2 = "";
+            String social_string1 = "";
+            String social_string2 = "";
+            String work_string1 = "";
+            String work_string2 = "";
+            String health_string1 = "";
+            String health_string2 = "";
+            String others_string1 = "";
+            String others_string2 = "";
+            double EPS = 0.01;
+            double leisure_max = Math.max(Math.max(Math.max(leisure_hectic, leisure_ideal), leisure_lazy), leisure_vlazy);
+//            try {
+                if (leisure_score < 0.9 * fuzzy_leisure_score) {
+                    if (Math.abs(leisure_max - leisure_hectic) < EPS) {
+                        leisure_string1 = "Catch a movie streaming on TV this evening.";
+                        leisure_string2 = "Fuzzy Leisure Status : Hectic";
+                    } else if (Math.abs(leisure_max - leisure_ideal) < EPS) {
+                        leisure_string1 = "Catch a movie streaming on TV this evening.";
+                        leisure_string2 = "Fuzzy Leisure Status : Ideal";
+                    } else if (Math.abs(leisure_max - leisure_lazy) < EPS) {
+                        leisure_string1 = "Time to go to the beach.";
+                        leisure_string2 = "Fuzzy Leisure Status : Lazy";
+                    } else if (Math.abs(leisure_max - leisure_vlazy) < EPS) {
+                        leisure_string1 = "Time to go to the beach.";
+                        leisure_string2 = "Fuzzy Leisure Status : Very Lazy";
+                    }
+                } else if (leisure_score > 1.1 * fuzzy_leisure_score) {
+                    if (Math.abs(leisure_max - leisure_hectic)  < EPS) {
+                        leisure_string1 = "Aliens are out there to kill you.Pray with family at home.";
+                        leisure_string2 = "Fuzzy Leisure Status : Hectic";
+                    } else if (Math.abs(leisure_max - leisure_ideal) < EPS) {
+                        leisure_string1 = "When was the last time you played board games?";
+                        leisure_string2 = "Fuzzy Leisure Status : Ideal";
+                    } else if (Math.abs(leisure_max - leisure_lazy)  < EPS){
+                        leisure_string1 = "Household work can't kill you but why take a chance ?";
+                        leisure_string2 = "Fuzzy Leisure Status : Lazy";
+                    } else if (Math.abs(leisure_max - leisure_vlazy)  < EPS){
+                        leisure_string1 = "Household work can't kill you but why take a chance ?";
+                        leisure_string2 = "Fuzzy Leisure Status : Very Lazy";
+                    }
+                } else {
+                    if (Math.abs(leisure_max - leisure_hectic)  < EPS){
+                        leisure_string1 = "Have some rest at home buddy.";
+                        leisure_string2 = "Fuzzy Leisure Status : Hectic";
+                    } else if (Math.abs(leisure_max - leisure_ideal)  < EPS){
+                        leisure_string1 = "Going perfect.I must learn from you.";
+                        leisure_string2 = "Fuzzy Leisure Status : Ideal";
+                    } else if (Math.abs(leisure_max - leisure_lazy)  < EPS){
+                        leisure_string1 = "Household work can't kill you but why take a chance ?";
+                        leisure_string2 = "Fuzzy Leisure Status : Lazy";
+                    } else if (Math.abs(leisure_max - leisure_vlazy)  < EPS){
+                        leisure_string1 = "Household work can't kill you but why take a chance ?";
+                        leisure_string2 = "Fuzzy Leisure Status : Hectic";
+                    }
+                }
+                Log.e(TAG + " social score", Double.toString(social_score) + Double.toString(fuzzy_social_score));
+                Log.e(TAG, "DOUBLE SCORE " + Double.toString(social_less) + " " + Double.toString(social_good) + " " + Double.toString(social_excess) );
+                double social_max = Math.max(Math.max(social_less, social_good), social_excess);
+                if (social_score < 0.9 * fuzzy_social_score) {
 
-        if(social_score < 0.9*fuzzy_social_score)
-        {
-            if(max(social_less,social_good,social_excess,0) == social_less)
-            {
-               social_string1 = "Throw a party.";
-               social_string2 = "Fuzzy Social Status: Less";
-            }
-            else if(max(social_less,social_good,social_excess,0) == social_good)
-            {
-               social_string1 = "Crash a wedding.";
-               social_string2 = "Fuzzy Social Status: Good";
-            }
-            else if(max(social_less,social_good,social_excess,0) == social_excess)
-            {
-               social_string1 = "Crash a wedding.";
-               social_string2 = "Fuzzy Social Status: Excess";
-            }
-        }
-        else if(social_score > 1.1*fuzzy_social_score)
-        {
-            if(max(social_less,social_good,social_excess,0) == social_less)
-            {
-               social_string1 = "Visit a distinct friend.";
-               social_string2 = "Fuzzy Social Status: Less";
-            }
-            else if(max(social_less,social_good,social_excess,0) == social_good)
-            {
-               social_string1 = "When was the last time you went roaming with your friends?";
-               social_string2 = "Fuzzy Social Status: Good";
-            }
-            else if(max(social_less,social_good,social_excess,0) == social_excess)
-            {
-               social_string1 = "Time Flies.Friends don't.";
-               social_string2 = "Fuzzy Social Status: Excess";
-            }
-        }
-        else
-        {
-            if(max(social_less,social_good,social_excess,0) == social_less)
-            {
-               social_string1 = "Have a coffee with a friend.";
-               social_string2 = "Fuzzy Social Status: Less";
-            }
-            else if(max(social_less,social_good,social_excess,0) == social_good)
-            {
-               social_string1 = "Your social life was made in heaven.";
-               social_string2 = "Fuzzy Social Status: Good";
-            }
-            else if(max(social_less,social_good,social_excess,0) == social_excess)
-            {
-               social_string1 = "Time Flies.Friends don't.";
-               social_string2 = "Fuzzy Social Status: Excess";
-            }
-        }
+                    if (Math.abs(social_max - social_less) < EPS) {
+                        social_string1 = "Throw a party.";
+                        social_string2 = "Fuzzy Social Status: Less";
+                    } else if (Math.abs(social_max - social_good) < EPS) {
+                        social_string1 = "Crash a wedding.";
+                        social_string2 = "Fuzzy Social Status: Good";
+                    } else if (Math.abs(social_max - social_excess) < EPS) {
+                        social_string1 = "Crash a wedding.";
+                        social_string2 = "Fuzzy Social Status: Excess";
+                    }
+                } else if (social_score > 1.1 * fuzzy_social_score) {
+                    if (Math.abs(social_max - social_less) < EPS) {
+                        social_string1 = "Visit a distinct friend.";
+                        social_string2 = "Fuzzy Social Status: Less";
+                    } else if (Math.abs(social_max - social_good) < EPS) {
+                        social_string1 = "When was the last time you went roaming with your friends?";
+                        social_string2 = "Fuzzy Social Status: Good";
+                    } else if (Math.abs(social_max - social_excess) < EPS) {
+                        social_string1 = "Time Flies.Friends don't.";
+                        social_string2 = "Fuzzy Social Status: Excess";
+                    }
+                } else {
+                    if (Math.abs(social_max - social_less) < EPS) {
+                        social_string1 = "Have a coffee with a friend.";
+                        social_string2 = "Fuzzy Social Status: Less";
+                    } else if (Math.abs(social_max - social_good) < EPS) {
+                        social_string1 = "Your social life was made in heaven.";
+                        social_string2 = "Fuzzy Social Status: Good";
+                    } else if (Math.abs(social_max - social_excess) < EPS) {
+                        social_string1 = "Time Flies.Friends don't.";
+                        social_string2 = "Fuzzy Social Status: Excess";
+                    }
+                }
+                double work_max = Math.max(Math.max(Math.max(work_avg, work_good), work_less), work_hectic);
+                if (work_score < 0.9 * fuzzy_work_score) {
+                    if (Math.abs(work_max- work_less) < EPS) {
+                        work_string1 = "Work or get fired.";
+                        work_string2 = "Fuzzy Work Status: Less";
+                    } else if (Math.abs(work_max - work_avg) < EPS) {
+                        work_string1 = "Work or get fired.";
+                        work_string2 = "Fuzzy Work Status: Average";
+                    } else if (Math.abs(work_max - work_good) < EPS) {
+                        work_string1 = "A productive employee is what a boss always like.";
+                        work_string2 = "Fuzzy Work Status: Good";
+                    } else if (Math.abs(work_max - work_hectic) < EPS) {
+                        work_string1 = "A productive employee is what a boss always like.";
+                        work_string2 = "Fuzzy Work Status: Hectic";
+                    }
+                } else if (work_score > 1.1 * fuzzy_work_score) {
+                    if (Math.abs(work_max - work_less) < EPS) {
+                        work_string1 = "Office is there to kill some time.";
+                        work_string2 = "Fuzzy Work Status: Less";
+                    } else if (Math.abs(work_max - work_avg) < EPS) {
+                        work_string1 = "Office is there to kill some time.";
+                        work_string2 = "Fuzzy Work Status: Average";
+                    } else if (Math.abs(work_max - work_good) < EPS) {
+                        work_string1 = "Its your time soon to climb up the ladder.";
+                        work_string2 = "Fuzzy Work Status: Good";
+                    } else if (Math.abs(work_max - work_hectic) < EPS) {
+                        work_string1 = "Its your time soon to climb up the ladder.";
+                        work_string2 = "Fuzzy Work Status: Hectic";
+                    }
+                } else {
+                    if (Math.abs(work_max - work_less)  < EPS){
+                        work_string1 = "Office is there to kill some time.";
+                        work_string2 = "Fuzzy Work Status: Less";
+                    } else if (Math.abs(work_max - work_avg) < EPS) {
+                        work_string1 = "Office is there to kill some time.";
+                        work_string2 = "Fuzzy Work Status: Average";
+                    } else if (Math.abs(work_max - work_good) < EPS) {
+                        work_string1 = "In office beat the clock.";
+                        work_string2 = "Fuzzy Work Status: Good";
+                    } else if (Math.abs(work_max - work_hectic) < EPS) {
+                        work_string1 = "In office beat the time.";
+                        work_string2 = "Fuzzy Work Status: Hectic";
+                    }
+                }
+                double health_max = Math.max(Math.max(Math.max(fitness_excess, fitness_good), fitness_less), fitness_vgood);
+                if (health_score < 0.9 * fuzzy_health_score) {
+                    if (Math.abs(health_max - fitness_less) < EPS) {
+                        health_string1 = "Its time to hit the gym.";
+                        health_string2 = "Fuzzy Health Status: Less";
+                    } else if (Math.abs(health_max - fitness_good) < EPS) {
+                        health_string1 = "Pull up the mass.Maximum effort.";
+                        health_string2 = "Fuzzy Health Status: Good";
+                    } else if (Math.abs(health_max - fitness_vgood) < EPS) {
+                        health_string1 = "Lets get back in shape.";
+                        health_string2 = "Fuzzy Health Status: Very Good";
+                    } else if (Math.abs(health_max - fitness_excess) < EPS) {
+                        health_string1 = "Lets get back in shape.";
+                        health_string2 = "Fuzzy Health Status: Excess";
+                    }
+                } else if (health_score > 1.1 * fuzzy_health_score) {
+                    if (Math.abs(health_max - fitness_less) < EPS) {
+                        health_string1 = "Exercise + Rest = Perfect Combo.";
+                        health_string2 = "Fuzzy Health Status: Less";
+                    } else if (Math.abs(health_max - fitness_good) < EPS) {
+                        health_string1 = "Leaner.Fitter.Stronger.";
+                        health_string2 = "Fuzzy Health Status: Good";
+                    } else if (Math.abs(health_max - fitness_vgood) < EPS) {
+                        health_string1 = "Leaner.Fitter.Stronger.";
+                        health_string2 = "Fuzzy Health Status: Very Good";
+                    } else if (Math.abs(health_max - fitness_excess) < EPS) {
+                        health_string1 = "Leaner.Fitter.Stronger.";
+                        health_string2 = "Fuzzy Health Status: Excess";
+                    }
+                } else {
+                    if (Math.abs(health_max - fitness_less) < EPS) {
+                        health_string1 = "Exercise + Rest = Perfect Combo.";
+                        health_string2 = "Fuzzy Health Status: Less";
+                    } else if (Math.abs(health_max - fitness_good) < EPS) {
+                        health_string1 = "I must certainly learn from you.";
+                        health_string2 = "Fuzzy Health Status: Good";
+                    } else if (Math.abs(health_max - fitness_vgood) < EPS) {
+                        health_string1 = "Be consistent.Be strong.";
+                        health_string2 = "Fuzzy Health Status: Very Good";
+                    } else if (Math.abs(health_max - fitness_excess) < EPS) {
+                        health_string1 = "Be consistent.Be strong.";
+                        health_string2 = "Fuzzy Health Status: Excess";
+                    }
+                }
+                double others_max = Math.max(others_acceptable, others_excess);
+                if (others_score < 0.9 * fuzzy_others_score) {
+                    if (Math.abs(others_max -  others_acceptable) < EPS) {
+                        others_string1 = "Time not wasted is time earned.";
+                        others_string1 = "Fuzzy Others Status: Acceptable";
+                    } else if (Math.abs(others_max -  others_excess) < EPS) {
+                        others_string1 = "Success Mantra = Less time + More work.";
+                        others_string1 = "Fuzzy Health Status: Excess";
+                    }
+                } else if (others_score > 1.1 * fuzzy_others_score) {
+                    if (Math.abs(others_max -  others_acceptable) < EPS) {
+                        others_string1 = "Your time is limited.Don't waste it.-Steve Jobs";
+                        others_string1 = "Fuzzy Health Status: Acceptable";
+                    } else if (Math.abs(others_max -  others_excess) < EPS) {
+                        others_string1 = "Your time is limited.Don't waste it.-Steve Jobs";
+                        others_string1 = "Fuzzy Health Status: Excess";
+                    }
+                } else {
+                    if (Math.abs(others_max -  others_acceptable) < EPS) {
+                        others_string1 = "Time not wasted is time earned.";
+                        others_string1 = "Fuzzy Health Status: Acceptable";
+                    } else if (Math.abs(others_max -   others_excess) < EPS) {
+                        others_string1 = "Success Mantra = Less time + More work.";
+                        others_string1 = "Fuzzy Health Status: Excess";
+                    }
+                }
 
-        if(work_score < 0.9*fuzzy_work_score)
-        {
-            if(max(work_less,work_avg,work_good,work_hectic) == work_less)
-            {
-               work_string1 = "Work or get fired.";
-               work_string2 = "Fuzzy Work Status: Less";
-            }
-            else if(max(work_less,work_avg,work_good,work_hectic) == work_avg)
-            {
-               work_string1 = "Work or get fired.";
-               work_string2 = "Fuzzy Work Status: Average";
-            }
-            else if(max(work_less,work_avg,work_good,work_hectic) == work_good)
-            {
-               work_string1 = "A productive employee is what a boss always like.";
-               work_string2 = "Fuzzy Work Status: Good";
-            }
-            else if(max(work_less,work_avg,work_good,work_hectic) == work_hectic)
-            {
-               work_string1 = "A productive employee is what a boss always like.";
-               work_string2 = "Fuzzy Work Status: Hectic";
-            }
-        }
-        else if(work_score > 1.1*fuzzy_work_score)
-        {
-            if(max(work_less,work_avg,work_good,work_hectic) == work_less)
-            {
-               work_string1 = "Office is there to kill some time.";
-               work_string2 = "Fuzzy Work Status: Less";
-            }
-            else if(max(work_less,work_avg,work_good,work_hectic) == work_avg)
-            {
-               work_string1 = "Office is there to kill some time.";
-               work_string2 = "Fuzzy Work Status: Average";
-            }
-            else if(max(work_less,work_avg,work_good,work_hectic) == work_good)
-            {
-               work_string1 = "Its your time soon to climb up the ladder.";
-               work_string2 = "Fuzzy Work Status: Good";
-            }
-            else if(max(work_less,work_avg,work_good,work_hectic) == work_hectic)
-            {
-               work_string1 = "Its your time soon to climb up the ladder.";
-               work_string2 = "Fuzzy Work Status: Hectic";
-            }
-        }
-        else
-        {
-            if(max(work_less,work_avg,work_good,work_hectic) == work_less)
-            {
-               work_string1 = "Office is there to kill some time.";
-               work_string2 = "Fuzzy Work Status: Less";
-            }
-            else if(max(work_less,work_avg,work_good,work_hectic) == work_avg)
-            {
-               work_string1 = "Office is there to kill some time.";
-               work_string2 = "Fuzzy Work Status: Average";
-            }
-            else if(max(work_less,work_avg,work_good,work_hectic) == work_good)
-            {
-               work_string1 = "In office beat the clock.";
-               work_string2 = "Fuzzy Work Status: Good";
-            }
-            else if(max(work_less,work_avg,work_good,work_hectic) == work_hectic)
-            {
-               work_string1 = "In office beat the time.";
-               work_string2 = "Fuzzy Work Status: Hectic";
-            }
-        }
+                try {
+                    out_json.put("social_score", social_score);
+                    out_json.put("work_score", work_score);
+                    out_json.put("leisure_score", leisure_score);
+                    out_json.put("health_score", health_score);
+                    out_json.put("others_score", others_score);
 
-        if(health_score < 0.9*fuzzy_health_score)
-        {
-            if(max(fitness_less,fitness_good,fitness_vgood,fitness_excess)==fitness_less)
-            {
-               health_string1 = "Its time to hit the gym.";
-               health_string2 = "Fuzzy Health Status: Less";
-            }
-            else if(max(fitness_less,fitness_good,fitness_vgood,fitness_excess)==fitness_good)
-            {
-               health_string1 = "Pull up the mass.Maximum effort.";
-               health_string2 = "Fuzzy Health Status: Good";
-            }
-            else if(max(fitness_less,fitness_good,fitness_vgood,fitness_excess)==fitness_vgood)
-            {
-               health_string1 = "Lets get back in shape.";
-               health_string2 = "Fuzzy Health Status: Very Good";
-            }
-            else if(max(fitness_less,fitness_good,fitness_vgood,fitness_excess)==fitness_excess)
-            {
-               health_string1 = "Lets get back in shape.";
-               health_string2 = "Fuzzy Health Status: Excess";
-            }
-        }
-        else if(health_score > 1.1*fuzzy_health_score)
-        {
-            if(max(fitness_less,fitness_good,fitness_vgood,fitness_excess)==fitness_less)
-            {
-               health_string1 = "Exercise + Rest = Perfect Combo.";
-               health_string2 = "Fuzzy Health Status: Less";
-            }
-            else if(max(fitness_less,fitness_good,fitness_vgood,fitness_excess)==fitness_good)
-            {
-               health_string1 = "Leaner.Fitter.Stronger.";
-               health_string2 = "Fuzzy Health Status: Good";
-            }
-            else if(max(fitness_less,fitness_good,fitness_vgood,fitness_excess)==fitness_vgood)
-            {
-               health_string1 = "Leaner.Fitter.Stronger.";
-               health_string2 = "Fuzzy Health Status: Very Good";
-            }
-            else if(max(fitness_less,fitness_good,fitness_vgood,fitness_excess)==fitness_excess)
-            {
-               health_string1 = "Leaner.Fitter.Stronger.";
-               health_string2 = "Fuzzy Health Status: Excess";
-            }
-        }
-        else
-        {
-            if(max(fitness_less,fitness_good,fitness_vgood,fitness_excess)==fitness_less)
-            {
-               health_string1 = "Exercise + Rest = Perfect Combo.";
-               health_string2 = "Fuzzy Health Status: Less";
-            }
-            else if(max(fitness_less,fitness_good,fitness_vgood,fitness_excess)==fitness_good)
-            {
-               health_string1 = "I must certainly learn from you.";
-               health_string2 = "Fuzzy Health Status: Good";
-            }
-            else if(max(fitness_less,fitness_good,fitness_vgood,fitness_excess)==fitness_vgood)
-            {
-               health_string1 = "Be consistent.Be strong.";
-               health_string2 = "Fuzzy Health Status: Very Good";
-            }
-            else if(max(fitness_less,fitness_good,fitness_vgood,fitness_excess)==fitness_excess)
-            {
-               health_string1 = "Be consistent.Be strong.";
-               health_string2 = "Fuzzy Health Status: Excess";
-            }
-        }
+                    out_json.put("social_time", social_time);
+                    out_json.put("work_time", work_time);
+                    out_json.put("leisure_time", leisure_time);
+                    out_json.put("health_time", health_time);
+                    out_json.put("others_time", others_time);
 
-        if(others_score < 0.9*fuzzy_others_score)
-        {
-            if(max(others_acceptable,others_excess,0,0)==others_acceptable)
-            {
-               others_string1 = "Time not wasted is time earned.";
-               others_string1 = "Fuzzy Others Status: Acceptable";
-            }
-            else if(max(others_acceptable,others_excess,0,0)==others_excess)
-            {
-               others_string1 = "Success Mantra = Less time + More work.";
-               others_string1 = "Fuzzy Health Status: Excess";
-            }
-        }
-        else if(others_score > 1.1*fuzzy_others_score)
-        {
-            if(max(others_acceptable,others_excess,0,0)==others_acceptable)
-            {
-               others_string1 = "Your time is limited.Don't waste it.-Steve Jobs";
-               others_string1 = "Fuzzy Health Status: Acceptable";
-            }
-            else if(max(others_acceptable,others_excess,0,0)==others_excess)
-            {
-               others_string1 = "Your time is limited.Don't waste it.-Steve Jobs";
-               others_string1 = "Fuzzy Health Status: Excess";
-            }
-        }
-        else
-        {
-            if(max(others_acceptable,others_excess,0,0)==others_acceptable)
-            {
-               others_string1 = "Time not wasted is time earned.";
-               others_string1 = "Fuzzy Health Status: Acceptable";
-            }
-            else if(max(others_acceptable,others_excess,0,0)==others_excess)
-            {
-               others_string1 = "Success Mantra = Less time + More work.";
-               others_string1 = "Fuzzy Health Status: Excess";
-            }
-        }
-
-        try {
-            out_json.put("social_score", social_score);
-            out_json.put("work_score", work_score);
-            out_json.put("leisure_score", leisure_score);
-            out_json.put("health_score", health_score);
-            out_json.put("others_score", others_score);
-
-            out_json.put("social_time", social_time);
-            out_json.put("work_time", work_time);
-            out_json.put("leisure_time", leisure_time);
-            out_json.put("health_time", health_time);
-            out_json.put("others_time", others_time);
-
-            out_json.put("social_str", social_string1 + "\n" + social_string2);
-            out_json.put("work_str", work_string1 + "\n" + work_string2);
-            out_json.put("leisure_str", leisure_string1 + "\n" + leisure_string2);
-            out_json.put("health_str", health_string1 + "\n" + health_string2);
-            out_json.put("others_str", others_string1 + "\n" + others_string2);
-
-
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-
+                    out_json.put("social_str", social_string1 + "\n" + social_string2);
+                    out_json.put("work_str", work_string1 + "\n" + work_string2);
+                    out_json.put("leisure_str", leisure_string1 + "\n" + leisure_string2);
+                    out_json.put("health_str", health_string1 + "\n" + health_string2);
+                    out_json.put("others_str", others_string1 + "\n" + others_string2);
+//
+//
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+        Log.e(TAG, health_string1);
+        Log.e(TAG, social_string1);
+        Log.e(TAG, leisure_string1);
+        Log.e(TAG, work_string1);
+        Log.e(TAG, others_string1);
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//
+//        Log.e(TAG, work_string1 + work_string2);
+//        }
+//        catch (Exception e){
+//            e.printStackTrace();
+//        }
         return out_json;
         
     }

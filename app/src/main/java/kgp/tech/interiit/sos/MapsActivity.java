@@ -33,8 +33,10 @@ public class MapsActivity extends FragmentActivity implements LocationListener {
     public NetworkLocationService appLocationServiceNet = null;
     public Vector<People> getHelpers() {
         // We have to get it from the server
-        Vector<People> helpers = new Vector<People>(1);
-        helpers.addElement(new People("test loc", 22.33, 87.32));
+        Vector<People> helpers = new Vector<People>(2);
+
+        helpers.addElement(new People("Home", 22.321813, 87.304682));
+        helpers.addElement(new People("Work", 22.315974, 87.316367));
         return helpers;
     }
 
