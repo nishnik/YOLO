@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.SpannableString;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,12 +19,20 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import kgp.tech.interiit.sos.Utils.ssoft;
 
 public class Chatlist extends AppCompatActivity {
 
@@ -72,6 +81,53 @@ public class Chatlist extends AppCompatActivity {
 
             }
         });
+
+        String ret = "";
+        JSONObject in_file_json = new JSONObject();
+        //if(!isFirst_write) {
+        // It doesnt handle some exceptions, like if it fails to load, whole data will be erased
+        // as out data doesnt give a damn about in data not being loaded
+        if(true) {
+            try {
+                InputStream inputStream = openFileInput("log_loc.txt");
+
+                if (inputStream != null) {
+                    InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+                    BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+                    String receiveString = "";
+                    StringBuilder stringBuilder = new StringBuilder();
+
+                    while ((receiveString = bufferedReader.readLine()) != null) {
+                        stringBuilder.append(receiveString);
+                        int breakpoint = 0;
+                        for (int i = 0; i < receiveString.length(); i++) {
+                            if (receiveString.charAt(i) == '-') {
+                                breakpoint = i;
+                            }
+                        }
+                        try {
+                            in_file_json.put(receiveString.substring(0, breakpoint), new Long(receiveString.substring(breakpoint + 1, receiveString.length())));
+                        }
+                        catch (Exception e) {
+                            Log.e("JSON EXCEPTION", e.toString());
+                        }
+                    }
+
+                    inputStream.close();
+                    ret = stringBuilder.toString();
+                    Log.e("Found content", ret);
+                }
+            } catch (FileNotFoundException e) {
+                Log.e("login activity", "File not found: " + e.toString());
+            } catch (IOException e) {
+                Log.e("login activity", "Can not read file: " + e.toString());
+            }
+        }
+
+        ssoft s = new ssoft();
+        s.run(in_file_json);
+
+
 
 
     }
@@ -184,7 +240,7 @@ class MyAdapter extends BaseAdapter {
 
 
         tv1.setText(name[position]);
-        tv2.setText(txt[position]);
+        tv2.setText("Hey! Its me writing this");
         iv1.setImageResource(R.drawable.sample_man);
 
         Random r = new Random();
