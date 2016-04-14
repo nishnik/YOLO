@@ -5,7 +5,7 @@ package kgp.tech.interiit.sos.Utils;
  */
 
 public class members {
-    static double slope(int a,int b,int c,int d,int x){
+    static double slope(int a,int b,int c,int d,double x){
         if(x < a)
         {
             return 0;

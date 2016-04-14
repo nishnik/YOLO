@@ -352,13 +352,13 @@ public class AChartEnginePieChartActivity extends Activity {
         mRenderer.setLegendTextSize(30);
         mRenderer.setMargins(new int[]{20, 30, 15, 0});
         mRenderer.setChartTitle("Time Chart");
-        mRenderer.setChartTitleTextSize(50);
+        mRenderer.setChartTitleTextSize(75);
         mRenderer.setLabelsColor(Color.argb(200, 0 ,0, 0));
         //mRenderer.setZoomButtonsVisible(true);
         mRenderer.setStartAngle(90);
 
         for (int i = 0; i < VALUES.length; i++) {
-            mSeries.add(NAME_LIST[i] + " " + VALUES_SHOW[i] + "     \t", VALUES[i]);
+            mSeries.add(NAME_LIST[i] + " " + VALUES_SHOW[i] + "   \t\t", VALUES[i]);
             SimpleSeriesRenderer renderer = new SimpleSeriesRenderer();
             renderer.setColor(COLORS[(mSeries.getItemCount() - 1) % COLORS.length]);
             mRenderer.addSeriesRenderer(renderer);
