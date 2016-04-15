@@ -36,7 +36,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import kgp.tech.interiit.sos.Utils.ssoft;
 
 public class Chatlist extends AppCompatActivity {
-
+    String TAG = "YOLO";
     private Toolbar toolbar;
     private ListView listView;
     public static JSONObject out_json;
@@ -117,7 +117,7 @@ public class Chatlist extends AppCompatActivity {
 
                     inputStream.close();
                     ret = stringBuilder.toString();
-                    Log.e("Found content", ret);
+                    Log.e(TAG + "List: Found content", ret);
                 }
             } catch (FileNotFoundException e) {
                 Log.e("login activity", "File not found: " + e.toString());

@@ -26,9 +26,8 @@ import kgp.tech.interiit.sos.Utils.People;
 
 
 public class MapsActivity extends FragmentActivity implements LocationListener {
-
+    String TAG = "YOLO : Maps: ";
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
-    private static final String TAG = "LocationActivity";
     int REQUEST_CODE_ASK_PERMISSIONS = 123;
     public NetworkLocationService appLocationServiceNet = null;
     public Vector<People> getHelpers() {
@@ -60,7 +59,7 @@ public class MapsActivity extends FragmentActivity implements LocationListener {
         setContentView(R.layout.activity_maps);
         if (appLocationServiceNet == null)
                        appLocationServiceNet = new NetworkLocationService();
-        Log.e("Mapsacti", "OnCreate");
+        //Log.e("", "OnCreate");
         LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
 

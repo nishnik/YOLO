@@ -529,7 +529,7 @@ public class ssoft{
 
         JSONObject out_json = new JSONObject();
         //out_json.put()
-        String TAG = "ssoft";
+        String TAG = "YOLO";
         Log.e(TAG, "Social score : "+ social_score +" \t Social Time : "+social_time);
         Log.e(TAG, "Work score : " + work_score + " \t Work Time : " + work_time);
         Log.e(TAG, "Leisure score : " + leisure_score + " \t Leisure Time : " + leisure_time);
@@ -612,11 +612,9 @@ public class ssoft{
                         leisure_string2 = "Fuzzy Leisure Status : Lazy";
                     } else if (Math.abs(leisure_max - leisure_vlazy)  < EPS){
                         leisure_string1 = "Household work can't kill you but why take a chance ?";
-                        leisure_string2 = "Fuzzy Leisure Status : Hectic";
+                        leisure_string2 = "Fuzzy Leisure Status : Very Lazy";
                     }
                 }
-                Log.e(TAG + " social score", Double.toString(social_score) + Double.toString(fuzzy_social_score));
-                Log.e(TAG, "DOUBLE SCORE " + Double.toString(social_less) + " " + Double.toString(social_good) + " " + Double.toString(social_excess) );
                 double social_max = Math.max(Math.max(social_less, social_good), social_excess);
                 if (social_score < 0.9 * fuzzy_social_score) {
 
@@ -745,26 +743,26 @@ public class ssoft{
                 if (others_score < 0.9 * fuzzy_others_score) {
                     if (Math.abs(others_max -  others_acceptable) < EPS) {
                         others_string1 = "Time not wasted is time earned.";
-                        others_string1 = "Fuzzy Others Status: Acceptable";
+                        others_string2 = "Fuzzy Others Status: Acceptable";
                     } else if (Math.abs(others_max -  others_excess) < EPS) {
                         others_string1 = "Success Mantra = Less time + More work.";
-                        others_string1 = "Fuzzy Health Status: Excess";
+                        others_string2 = "Fuzzy Others Status: Excess";
                     }
                 } else if (others_score > 1.1 * fuzzy_others_score) {
                     if (Math.abs(others_max -  others_acceptable) < EPS) {
                         others_string1 = "Your time is limited.Don't waste it.-Steve Jobs";
-                        others_string1 = "Fuzzy Health Status: Acceptable";
+                        others_string2 = "Fuzzy Others Status: Acceptable";
                     } else if (Math.abs(others_max -  others_excess) < EPS) {
                         others_string1 = "Your time is limited.Don't waste it.-Steve Jobs";
-                        others_string1 = "Fuzzy Health Status: Excess";
+                        others_string2 = "Fuzzy Others Status: Excess";
                     }
                 } else {
                     if (Math.abs(others_max -  others_acceptable) < EPS) {
                         others_string1 = "Time not wasted is time earned.";
-                        others_string1 = "Fuzzy Health Status: Acceptable";
+                        others_string2 = "Fuzzy Others Status: Acceptable";
                     } else if (Math.abs(others_max -   others_excess) < EPS) {
                         others_string1 = "Success Mantra = Less time + More work.";
-                        others_string1 = "Fuzzy Health Status: Excess";
+                        others_string2 = "Fuzzy Others Status: Excess";
                     }
                 }
 

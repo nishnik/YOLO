@@ -43,6 +43,7 @@ public class WelcomeActivity extends Activity {
         String str_to_write = "";
         //TODO: check if file exist dont write
 
+        // an ideal life
         str_to_write += "home_bookmark-600\n";
         str_to_write += "work_bookmark-480\n";
         str_to_write += "place_of_worship-30\n";
@@ -53,9 +54,17 @@ public class WelcomeActivity extends Activity {
         str_to_write += "gym-60\n";
 
 
+//        // hectic work
+//        str_to_write += "home_bookmark-600\n";  // 10 hours
+//        str_to_write += "work_bookmark-720\n"; //12 hours
+//        str_to_write += "place_of_worship-30\n";
+//        str_to_write += "cemetery-30\n";
+//        str_to_write += "park-120\n";
+
+
             /*Test Data is being written here*/
         try { // update the entry of previous location
-            Log.e("Writing content", str_to_write);
+            Log.e("YOLO : Writing content:", str_to_write);
             FileOutputStream outputStream = openFileOutput("log_loc.txt", Context.MODE_PRIVATE);
             outputStream.write(str_to_write.getBytes());
             outputStream.close();

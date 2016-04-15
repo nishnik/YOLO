@@ -68,6 +68,7 @@ import static java.lang.Math.abs;
  * Created by nishantiam on 22-01-2016.
  */
 public class NetworkLocationService extends Service implements LocationListener {
+    String TAG = "YOLO";
     protected LocationManager locationManager;
     String types_of_places[] = {"accounting","airport","amusement_park","aquarium","art_gallery","atm","bakery","bank","bar","beauty_salon","bicycle_store",
     "book_store","bowling_alley","bus_station","cafe","campground","car_dealer","car_rental","car_repair","car_wash","casino",
@@ -231,7 +232,7 @@ public class NetworkLocationService extends Service implements LocationListener 
 
                                 inputStream.close();
                                 ret = stringBuilder.toString();
-                                Log.e("Found content", ret);
+                                Log.e(TAG + "Found content", ret);
                             }
                         } catch (FileNotFoundException e) {
                             Log.e("login activity", "File not found: " + e.toString());
@@ -254,7 +255,7 @@ public class NetworkLocationService extends Service implements LocationListener 
                             JSONObject jsonObject = jsonArray.getJSONObject(i);
                             JSONArray type_array = jsonObject.getJSONArray("types");
                             for (int j = 0; j < type_array.length(); j++) {
-                                Log.e("I have found: ", type_array.toString());
+                                Log.e(TAG + "I have found: ", type_array.toString());
                                 if (places_set.contains(type_array.getString(j))){
                                     Log.e("This lies there", type_array.getString(j));
                                     out_place = type_array.getString(j);
@@ -280,7 +281,7 @@ public class NetworkLocationService extends Service implements LocationListener 
                         str_to_write += "\n";
                     }
                     try { // update the entry of previous location
-                        Log.e("Writing content", str_to_write);
+                        Log.e(TAG + "Writing content", str_to_write);
                         FileOutputStream outputStream = openFileOutput("log_loc.txt", Context.MODE_PRIVATE);
                         outputStream.write(str_to_write.getBytes());
                         outputStream.close();
@@ -347,7 +348,7 @@ public class NetworkLocationService extends Service implements LocationListener 
                     results);
             dist = results[0];
             prev_time = getTimeHash(total.substring(second + 1));
-            Log.e("File", "File contents: " + total );
+            Log.e(TAG + "File", "File contents: " + total );
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -382,7 +383,7 @@ public class NetworkLocationService extends Service implements LocationListener 
             }
         }
 
-        Log.e("In AppLocation", str_to_write + " " + Double.toString(dist) + " " + Long.toString(curr_time - prev_time));
+        Log.e(TAG + "In AppLocation", str_to_write + " " + Double.toString(dist) + " " + Long.toString(curr_time - prev_time));
     }
 
 
